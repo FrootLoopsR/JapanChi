@@ -19,7 +19,7 @@
                 <ul>
                     <li><i class="bx bx-chevron-right"></i> <a href="javascript:loadPage('welcome')">Home</a></li>
                     <li><i class="bx bx-chevron-right"></i> <a href="javascript:loadPage('about')">About us</a></li>
-                    <li><i class="bx bx-chevron-right"></i> <a href="#">Source</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/FrootLoopsR/JapanChi">Source</a></li>
                 </ul>
             </div>
 

@@ -919,6 +919,20 @@ section {
     color: #cda45e;
 }
 
+#menu-flters .filters-link a {
+    padding-right: 10px;
+    background: #1a1814;
+    position: relative;
+    z-index: 3;
+    font-weight: 700;
+    color: white;
+    transition: 0.3s;
+}
+
+#menu-flters .filters-link a:hover {
+    color: #cda45e;
+}
+
 .menu #menu-flters li:last-child {
     margin-right: 0;
 }
@@ -932,6 +946,10 @@ section {
     border-radius: 50%;
     float: left;
     border: 5px solid rgba(255, 255, 255, 0.2);
+    transition: transform .2s;
+}
+.menu .menu-img:hover {
+    transform: scale(2);
 }
 
 .menu .menu-content {

@@ -15,7 +15,7 @@
                 <h2>Delivering great Japanese food for more than 18 years!</h2>
 
                 <div class="btns">
-                    <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
+                    <a href="javascript:loadPage('menu')" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
                 </div>
             </div>
             <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in"
