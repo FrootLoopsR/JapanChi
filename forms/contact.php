@@ -32,6 +32,4 @@ write_to_console("Class members set");
 
 $contact->send_email_via_gmail();
 
-$contact->send_email_via_mailto();
-
 ?>
