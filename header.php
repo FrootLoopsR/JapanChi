@@ -2,6 +2,9 @@
 <html lang="en">
 <header>
     <script>
+
+        //on nav bar click, load the page into the main section
+        //manipulation of dom to create "one page application"
         function loadPage(page) {
             $("#main").load(`pages/${page}.php`);
             document.body.scrollTop = 0; //safari

@@ -15,9 +15,7 @@
 
         async function showRelevantProducts(productType) {
             const products = await getDataFromDB();
-            console.log(products);
             const filteredProducts = productType === 'All' ? products : products.filter(product => product['productCategory'] === productType);
-            console.log(filteredProducts);
             const productDiv = document.getElementById('menu-items');
             productDiv.innerHTML = '';
             filteredProducts.forEach(product => {

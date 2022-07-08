@@ -1,19 +1,20 @@
 <?php
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once "vendor/autoload.php";
+require '../../../vendor/autoload.php';
+
 
 class PHP_Email_Form
 {
-    public $from_email;
-    public $from_name;
-    public $subject;
-    public $message;
-    public $to_email = 'royazami13@gmail.com';
-    public $to_name = 'Roy Azami';
-    public $ajax = true;
+    public string $from_email;
+    public string $from_name;
+    public string $subject;
+    public string $message;
+    public string $to_email = 'royazami13@gmail.com';
+    public string $to_name = 'Roy Azami';
 
 
     private function write_to_console($data)
@@ -25,10 +26,55 @@ class PHP_Email_Form
         echo "<script>console.log('Console: " . $console . "' );</script>";
     }
 
-    public function send_email()
+    public function send_email_via_gmail(): void
     {
-        $mail = new PHPMailer(true);
+        try {
+            $this->write_to_console('Entered send_email_via_gmail');
+            $gmail_mail = new PHPMailer(true);
+            $this->write_to_console('Created PHPMailer');
+
+            $gmail_mail->isSMTP();
+            $gmail_mail->IsHTML(true); // Set email format to HTML
+            // Send email using gmail SMTP server
+            $gmail_mail->Host = 'ssl://smtp.gmail.com';
+            $this->write_to_console('Host' . $gmail_mail->Host);
+            // port for Send email
+            $gmail_mail->Port = 465;
+            $this->write_to_console('Port' . $gmail_mail->Port);
+            $gmail_mail->SMTPDebug = 1;
+            $gmail_mail->SMTPAuth = true;
+            $gmail_mail->Username = 'roee007@gmail.com';
+            $this->write_to_console('User' . $gmail_mail->Username);
+            $gmail_mail->Password = 'Az45xc78b';
+            $this->write_to_console('Pw' . $gmail_mail->Password);
+            $gmail_mail->Subject = $this->subject;
+            $this->write_to_console('Subject ' . $gmail_mail->Subject);
+            $gmail_mail->Body = 'New Ticket From JapanChi <br> <strong>{$this->subject}</strong> <br> <br> {$this->message}';
+            $this->write_to_console('Body' . $gmail_mail->Body);
+
+            $gmail_mail->addAddress($this->to_email, $this->to_name);
+            $gmail_mail->setFrom($this->from_email, $this->from_name);
+            $gmail_mail->addReplyTo($this->from_email, $this->from_name);
+
+        } catch (Exception $e) {
+            die("Error setting data: " . $e->getMessage());
+        }
+
+
+        //$gmail_mail->AltBody = 'This is the body in plain text for non-HTML mail clients at https://onlinecode.org/';
+
+        try {
+            $gmail_mail->send();
+            die('Message of Send email using gmail SMTP server has been sent');
+        } catch (Exception $e) {
+            die('Mailer error' . $e->getMessage());
+        }
+    }
+
+    public function send_email_via_gmail_old(): bool
+    {
         $this->write_to_console("Created Class Sending to mail " . $this->to_email);
+        $mail = new PHPMailer(true);
         try {
             //Server settings
             $mail->SMTPDebug = 0;                                 // Enable verbose debug output
@@ -56,4 +102,15 @@ class PHP_Email_Form
         }
 
     }
+
+    public function send_email_via_mailto(): bool
+    {
+        if (mail($this->to_email, $this->subject, $this->message, "From: " . $this->from_email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
+?>

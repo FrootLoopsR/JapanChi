@@ -14,9 +14,7 @@
 
         async function showRelevantProducts() {
             const products = await getDataFromDB();
-            console.log(products);
             const filteredProducts = products.filter(product => product['productCategory'] === "Special");
-            console.log(filteredProducts);
             const specialDish = document.getElementById('special-dish-contect');
             const specialLinksDiv = document.getElementById('special-links');
             let tabCounter = 1;

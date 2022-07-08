@@ -15,9 +15,7 @@
     </div>
 
     <div class="container" data-aos="fade-up">
-
         <div class="row mt-5">
-
             <div class="col-lg-4">
                 <div class="info">
                     <div class="address">
@@ -50,9 +48,7 @@
                 </div>
 
             </div>
-
             <div class="col-lg-8 mt-5 mt-lg-0">
-
                 <form action="forms/contact.php" method="post" role="form" class="php-email-form">
                     <div class="row">
                         <div class="col-md-6 form-group">
@@ -69,7 +65,7 @@
                                required>
                     </div>
                     <div class="form-group mt-3">
-                            <textarea class="form-control" name="message" rows="8" placeholder="Message"
+                            <textarea class="form-control" name="message" id="message" rows="8" placeholder="Message"
                                       required></textarea>
                     </div>
                     <div class="my-3">
