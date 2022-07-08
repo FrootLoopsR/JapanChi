@@ -32,7 +32,7 @@ class PHP_Email_Form
             $gmail_mail->Username = getenv('GMAIL_USERNAME');
             $gmail_mail->Password = getenv('GMAIL_PASSWORD');
             $gmail_mail->Subject = $this->subject;
-            $gmail_mail->Body = 'New Ticket From JapanChi <br> <strong>Email: ' . $this->from_email . ' Name: ' . $this->from_name . 'Sent a ticket</strong><br>' . $this->message;
+            $gmail_mail->Body = 'New Ticket From JapanChi <br> <strong>Email: ' . $this->from_email . ' Name: ' . $this->from_name . ' Sent a ticket</strong><br>' . $this->message;
 
             $gmail_mail->addAddress($this->to_email, $this->to_name);
             $gmail_mail->addCC('barak.litvinov@outlook.com', 'Barak Litvinov');
