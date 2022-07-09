@@ -5,7 +5,7 @@
     <script>
         async function getDataFromDB() {
             try {
-                const response = await fetch('getProductsFromDB.php');
+                const response = await fetch('forms/get-products-from-db.php');
                 return JSON.parse(await response.json());
             } catch (error) {
                 console.log(error);
