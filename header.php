@@ -29,10 +29,11 @@
             <li><a class="nav-link" href="javascript:loadPage('specials')">Specials</a></li>
             <li><a class="nav-link" href="javascript:loadPage('gallery')">Gallery</a></li>
             <li><a class="nav-link" href="javascript:loadPage('contact-us')">Contact Us</a></li>
+            <li><a class="nav-link" href="javascript:loadPage('reviews')">Reviews</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
-    <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Book a table</a>
+    <a href="javascript:loadPage('post-review')" class="post-a-review-btn scrollto d-none d-lg-flex">Post a Review</a>
 </div>
 </body>
 <!-- End Header -->

@@ -4,9 +4,9 @@
     <meta charset="utf-8">
 
     <script>
-        async function getDataFromDB() {
+        async function getProductsFromDB() {
             try {
-                const response = await fetch('getProductsFromDB.php');
+                const response = await fetch('forms/get-products-from-db.php');
                 return JSON.parse(await response.json());
             } catch (error) {
                 console.log(error);
@@ -14,7 +14,7 @@
         }
 
         async function showRelevantProducts(productType) {
-            const products = await getDataFromDB();
+            const products = await getProductsFromDB();
             const filteredProducts = productType === 'All' ? products : products.filter(product => product['productCategory'] === productType);
             const productDiv = document.getElementById('menu-items');
             productDiv.innerHTML = '';
@@ -68,18 +68,6 @@
 </section>
 <!-- End Menu Section -->
 
-<script src="assets/vendor/aos/aos.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-
-
-<!-- End Menu Section -->
 
 </body>
 </html>

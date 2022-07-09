@@ -1,8 +1,10 @@
 <?php
-$servername = "37.59.55.185";
-$username = "BvpmECk0AP";
-$password = "9SVFB8U38d";
-$dbname = "BvpmECk0AP";
+
+//Stand alone db insert for initial product state
+$servername = getenv('SERVER_IP');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$dbname = getenv('DB_NAME');
 
 $con = new mysqli($servername, $username, $password, $dbname);
 if ($con->connect_error) {
