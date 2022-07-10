@@ -49,11 +49,11 @@ class PHP_Form
     public function __construct($form)
     {
         if ($form == 'contact') {
-            $this->mailer = getenv('GMAIL_USER');
+            $this->mailer = getenv('GMAIL_USERNAME');
             $this->smtp = array(
                 'host' => getenv('HOSTNAME'),
-                'username' => getenv('GMAIL_USER'),
-                'password' => getenv('GMAIL_PASS')
+                'username' => getenv('GMAIL_USERNAME'),
+                'password' => getenv('GMAIL_PASSWORD')
             );
         } else {
             $this->db_connection = array(
