@@ -1,7 +1,7 @@
 <?php
 
 //Stand alone db insert for initial product state
-$servername = getenv('SERVER_IP');
+$servername = getenv('SERVER_NAME');
 $username = getenv('DB_USER');
 $password = getenv('DB_PASS');
 $dbname = getenv('DB_NAME');
@@ -15,7 +15,6 @@ else{
 }
 $products = array(
     array(
-        "id" => 1,
         "productCategory" => "Starter",
         "productName" => "Kimchi",
         "productCost" => "19",
@@ -24,7 +23,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 2,
         "productCategory" => "Starter",
         "productName" => "Chicken gyoza",
         "productCost" => "31",
@@ -33,7 +31,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 3,
         "productCategory" => "Starter",
         "productName" => "Chicken Wings",
         "productCost" => "21",
@@ -42,7 +39,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 4,
         "productCategory" => "Starter",
         "productName" => "Steamed rice",
         "productCost" => "12",
@@ -51,7 +47,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 5,
         "productCategory" => "Sushi",
         "productName" => "Fish Maki",
         "productCost" => "25",
@@ -60,7 +55,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 6,
         "productCategory" => "Sushi",
         "productName" => "Fish Maki I/O",
         "productCost" => "27",
@@ -69,7 +63,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 7,
         "productCategory" => "Sushi",
         "productName" => "Photomaki",
         "productCost" => "32",
@@ -78,7 +71,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 8,
         "productCategory" => "Sushi",
         "productName" => "Photomaki I/O",
         "productCost" => "37",
@@ -87,7 +79,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 9,
         "productCategory" => "Wok",
         "productName" => "Chiang Mai chicken",
         "productCost" => "54",
@@ -96,7 +87,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 10,
         "productCategory" => "Wok",
         "productName" => "Chiang Mai beef",
         "productCost" => "57",
@@ -105,7 +95,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 11,
         "productCategory" => "Wok",
         "productName" => "Chicken pad Thai",
         "productCost" => "49",
@@ -114,7 +103,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 12,
         "productCategory" => "Wok",
         "productName" => "Beef pad Thai",
         "productCost" => "52",
@@ -123,7 +111,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 13,
         "productCategory" => "Special",
         "productName" => "White Royal",
         "productCost" => "54",
@@ -132,7 +119,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 14,
         "productCategory" => "Special",
         "productName" => "Crispy roll",
         "productCost" => "49",
@@ -141,7 +127,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 15,
         "productCategory" => "Special",
         "productName" => "Sunset",
         "productCost" => "44",
@@ -150,7 +135,6 @@ $products = array(
         "dateCreated" => date('Y-m-d'),
     ),
     array(
-        "id" => 16,
         "productCategory" => "Special",
         "productName" => "Umami",
         "productCost" => "49",
@@ -161,7 +145,7 @@ $products = array(
 );
 
 foreach ($products as $product) {
-    $sql = "INSERT INTO Products (id, productCategory, productName, productCost, productImage, productDescription, dateCreated) VALUES({$product['id']}, '{$product['productCategory']}', '{$product['productName']}', {$product['productCost']}, '{$product['productImage']}', '{$product['productDescription']}', '{$product['dateCreated']}')";
+    $sql = "INSERT INTO products (productCategory, productName, productCost, productImage, productDescription, dateCreated) VALUES('{$product['productCategory']}', '{$product['productName']}', {$product['productCost']}, '{$product['productImage']}', '{$product['productDescription']}', '{$product['dateCreated']}')";
 
     if ($con->query($sql) === TRUE) {
         echo "New record created successfully";

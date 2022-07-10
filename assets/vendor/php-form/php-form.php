@@ -57,7 +57,7 @@ class PHP_Form
             );
         } else {
             $this->db_connection = array(
-                "servername" => getenv('SERVER_IP'),
+                "servername" => getenv('SERVER_NAME'),
                 "username" => getenv('DB_USER'),
                 "password" => getenv('DB_PASS'),
                 "dbname" => getenv('DB_NAME')
@@ -207,8 +207,8 @@ class PHP_Form
         $results = $this->conn->query("SELECT MAX(id) as 'id' FROM Reviews");
         $max_id = $results->fetch_row()[0] + 1;
         $date = date('Y-m-d');
-        $sql = "INSERT INTO Reviews (id, name, title, message, date) 
-                VALUES (" . $max_id . ", '" . $_POST['name'] . "', '" . $_POST['title'] . "', '" . $_POST['message'] . "', '" . $date . "')";
+        $sql = "INSERT INTO reviews (name, title, message, date) 
+                VALUES ('" . $_POST['name'] . "', '" . $_POST['title'] . "', '" . $_POST['message'] . "', '" . $date . "')";
 
         if ($this->conn->query($sql) === TRUE) {
             return "OK";
@@ -219,7 +219,7 @@ class PHP_Form
 
     public function get_products_from_db()
     {
-        $sql = "SELECT * FROM Products";
+        $sql = "SELECT * FROM products";
         $results = $this->conn->query($sql);
         $jsonData = "[";
 
@@ -232,7 +232,7 @@ class PHP_Form
 
     public function get_reviews_from_db()
     {
-        $sql = "SELECT * FROM Reviews";
+        $sql = "SELECT * FROM reviews";
         $results = $this->conn->query($sql);
         $jsonData = "[";
 
