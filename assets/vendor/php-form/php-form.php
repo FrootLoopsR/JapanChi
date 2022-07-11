@@ -57,7 +57,7 @@ class PHP_Form
             );
         } else {
             $this->db_connection = array(
-                "servername" => getenv('SERVER_NAME'),
+                "servername" => getenv('DB_HOST'),
                 "username" => getenv('DB_USER'),
                 "password" => getenv('DB_PASS'),
                 "dbname" => getenv('DB_NAME')
