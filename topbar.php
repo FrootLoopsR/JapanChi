@@ -10,7 +10,7 @@
         <a href="https://www.linkedin.com/in/sapir-madar-175aab22a/">
             Sapir Madar</a>
         </span>
-        <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 23PM</span></i>
+        <i class="bi bi-clock d-flex align-items-center ms-4"><span> Sun-Sat: 11AM - 23PM</span></i>
     </div>
 
     <div class="languages d-none d-md-flex align-items-center">
