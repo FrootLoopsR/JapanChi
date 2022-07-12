@@ -89,37 +89,11 @@ class PHP_Form
             return 'OK';
         }
 
-        if ($this->recaptcha_secret_key) {
-
-            if (!$_POST['recaptcha-response']) {
-                return 'No reCaptcha response provided!';
-            }
-
-            $recaptcha_options = [
-                'http' => [
-                    'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                    'method' => 'POST',
-                    'content' => http_build_query([
-                        'secret' => $this->recaptcha_secret_key,
-                        'response' => $_POST['recaptcha-response']
-                    ])
-                ]
-            ];
-
-            $recapthca_context = stream_context_create($recaptcha_options);
-            $recapthca_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $recapthca_context);
-            $recapthca_response_keys = json_decode($recapthca_response, true);
-
-            if (!$recapthca_response_keys['success']) {
-                return 'Failed to validate the reCaptcha!';
-            }
-        }
-
-        if ($this->ajax) {
-            if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
-                return $this->error_msg['ajax_error'];
-            }
-        }
+//        if ($this->ajax) {
+//            if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
+//                return $this->error_msg['ajax_error'];
+//            }
+//        }
 
         $to = filter_var($this->to, FILTER_VALIDATE_EMAIL);
         $from_name = filter_var($this->from_name);
