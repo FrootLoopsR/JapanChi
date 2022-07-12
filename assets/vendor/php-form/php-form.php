@@ -3,11 +3,10 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
 if (file_exists($auto_load = '../vendor/autoload.php')) {
     include($auto_load);
 } else {
-    die('Unable to load the "PHP Email Form" Library!');
+    die('Unable to load the "autoload" script!');
 }
 
 
@@ -57,10 +56,10 @@ class PHP_Form
             );
         } else {
             $this->db_connection = array(
-                "servername" => getenv('DB_HOST'),
-                "username" => getenv('DB_USER'),
-                "password" => getenv('DB_PASS'),
-                "dbname" => getenv('DB_NAME')
+                "servername" => "eu-cdbr-west-03.cleardb.net",//getenv('DB_HOST'),
+                "username" => "bab8d7a58b622f",//getenv('DB_USER'),
+                "password" => "711f992d",//getenv('DB_PASS'),
+                "dbname" => "heroku_454fe75926c0540"//getenv('DB_NAME')
             );
             $this->conn = new mysqli($this->db_connection['servername'], $this->db_connection['username'], $this->db_connection['password'], $this->db_connection['dbname']);
             if ($this->conn->connect_error) {
@@ -69,9 +68,9 @@ class PHP_Form
         }
     }
 
-    public function add_message($content, $label = '', $length_check = false): void
+    public function add_message($content, $label = '', $length_check = false)
     {
-        $message = filter_var($content,) . '<br>';
+        $message = filter_var($content) . '<br>';
         if ($length_check) {
             if (strlen($message) < $length_check + 4) {
                 $this->error .= $label . ' ' . $this->error_msg['short'] . '<br>';
@@ -81,7 +80,7 @@ class PHP_Form
         $this->message .= !empty($label) ? '<strong>' . $label . ':</strong> ' . $message : $message;
     }
 
-    public function send(): string
+    public function send()
     {
         if ($this->ajax) {
             if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
@@ -134,7 +133,9 @@ class PHP_Form
             return $this->error;
 
         // Initialize PHPMailer
+        echo "START PHP MAILER";
         $mail = new PHPMailer(true);
+        echo "END PHP MAILER";
 
         try {
             // Set timeout to 30 seconds
@@ -202,44 +203,54 @@ class PHP_Form
 
     }
 
-    public function post_review(): string
+    public function post_review()
     {
-        $results = $this->conn->query("SELECT MAX(id) as 'id' FROM Reviews");
-        $max_id = $results->fetch_row()[0] + 1;
         $date = date('Y-m-d');
         $sql = "INSERT INTO reviews (name, title, message, date) 
                 VALUES ('" . $_POST['name'] . "', '" . $_POST['title'] . "', '" . $_POST['message'] . "', '" . $date . "')";
 
-        if ($this->conn->query($sql) === TRUE) {
+        try {
+            $this->conn->query($sql);
             return "OK";
-        } else {
+        } catch (Exception $e) {
             return "DB Query Failed: " . $this->conn->error;
         }
     }
 
-    public function get_products_from_db()
+    public
+    function get_products_from_db()
     {
         $sql = "SELECT * FROM products";
         $results = $this->conn->query($sql);
-        $jsonData = "[";
+        $jsonData = array();
 
         foreach ($results as $row) {
-            $jsonData .= "{\"id\": \"" . $row['id'] . "\",\"productCategory\": \"" . $row['productCategory'] . "\",\"productName\":\"" . $row['productName'] . "\",\"productCost\":\"" . $row['productCost'] . "\",\"productImage\":\"" . $row['productImage'] . "\",\"productDescription\":\"" . $row['productDescription'] . "\",\"dateCreated\":\"" . $row['dateCreated'] . "\"},";
+            $jsonData[] = array(
+                "productCategory" => $row['productCategory'],
+                "productName" => $row['productName'],
+                "productCost" => $row['productCost'],
+                "productDescription" => $row['productDescription'],
+                "productImage" => $row['productImage'],
+            );
         };
-        $jsonData = substr_replace($jsonData, "]", -1);
-        return json_encode($jsonData);
+
+        return json_encode(json_encode($jsonData));
     }
 
-    public function get_reviews_from_db()
+    public
+    function get_reviews_from_db()
     {
         $sql = "SELECT * FROM reviews";
         $results = $this->conn->query($sql);
-        $jsonData = "[";
+        $jsonData = array();
 
         foreach ($results as $row) {
-            $jsonData .= "{\"id\": \"" . $row['id'] . "\",\"name\": \"" . $row['name'] . "\",\"title\":\"" . $row['title'] . "\",\"message\":\"" . $row['message'] . "\",\"date\":\"" . $row['date'] . "\"},";
-        };
-        $jsonData = substr_replace($jsonData, "]", -1);
-        return json_encode($jsonData);
+            $jsonData[] = array(
+                "name" => $row['name'],
+                "title" => $row['title'],
+                "message" => $row['message'],
+            );
+        }
+        return json_encode(json_encode($jsonData));
     }
 }

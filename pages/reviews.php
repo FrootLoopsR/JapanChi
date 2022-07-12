@@ -54,11 +54,11 @@
     <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-            <h2>Testimonials</h2>
+            <h2>Reviews</h2>
             <p>What they're saying about us</p>
         </div>
 
-        <div class="row testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="row testimonials-slider swiper" data-aos="fade-up" data-aos-delay="50">
             <div id="review-container" class="swiper-wrapper">
 
             </div>

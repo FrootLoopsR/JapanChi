@@ -9,37 +9,43 @@
                 const response = await fetch('forms/get-products-from-db.php');
                 return JSON.parse(await response.json());
             } catch (error) {
-                console.log(error);
+                console.error("ERROR OCC:" + error);
+                return "None";
             }
         }
 
         async function showRelevantProducts(productType) {
-            const products = await getProductsFromDB();
-            const filteredProducts = productType === 'All' ? products : products.filter(product => product['productCategory'] === productType);
-            const productDiv = document.getElementById('menu-items');
-            productDiv.innerHTML = '';
-            filteredProducts.forEach(product => {
-                productDiv.innerHTML += `
-                    <div class="col-lg-6 menu-item">
-                        <img src=${product['productImage']} class="menu-img" alt=${product['productName']}>
-                        <div class="menu-content">
-                            <span>${product['productName']}</span><span>${product['productCost']}&#8362;</span>
+            try {
+                const products = await getProductsFromDB();
+                console.log("products: ", products);
+                const filteredProducts = productType === 'All' ? products : products.filter(product => product['productCategory'] === productType);
+                const productDiv = document.getElementById('menu-items');
+                productDiv.innerHTML = '';
+                filteredProducts.forEach(product => {
+                    productDiv.innerHTML += `
+                        <div class="col-lg-6 menu-item">
+                            <img src=${product['productImage']} class="menu-img" alt=${product['productName']}>
+                            <div class="menu-content">
+                                <span>${product['productName']}</span><span>${product['productCost']}&#8362;</span>
+                            </div>
+                            <div class="menu-ingredients">
+                                ${product['productDescription']}
+                            </div>
                         </div>
-                        <div class="menu-ingredients">
-                            ${product['productDescription']}
-                        </div>
-                    </div>
-                `;
-            });
-            document.getElementById("menu-flters").childNodes.forEach(node => {
-                node.className = '';
-            });
-            document.getElementById(`${productType}`).classList.toggle('filter-active');
-
+                    `;
+                });
+                document.getElementById("menu-flters").childNodes.forEach(node => {
+                    node.className = '';
+                });
+                document.getElementById(`${productType}`).classList.toggle('filter-active');
+            } catch (error) {
+                console.error("ERROR OCC:" + error);
+            }
         }
 
-        showRelevantProducts('All');
-
+        $(document).ready(function () {
+            showRelevantProducts('All');
+        });
     </script>
 
 </header>

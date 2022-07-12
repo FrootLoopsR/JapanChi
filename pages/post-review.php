@@ -47,7 +47,7 @@
     <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-            <h2>Reservation</h2>
+            <h2>Review Submit</h2>
             <p>Post a Review</p>
         </div>
 
