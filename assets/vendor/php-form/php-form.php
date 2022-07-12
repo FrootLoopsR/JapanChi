@@ -83,6 +83,38 @@ class PHP_Form
         $this->message .= !empty($label) ? '<strong>' . $label . ':</strong> ' . $message : $message;
     }
 
+    public function reCaptcha()
+    {
+        if (!$this->recaptcha_secret_key) {
+            return "No ReCaptcha Secret Key";
+        }
+        if ($this->recaptcha_secret_key) {
+
+            if (!$_POST['recaptcha-response']) {
+                return 'No reCaptcha response provided!';
+            }
+
+            $recaptcha_options = [
+                'http' => [
+                    'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method' => 'POST',
+                    'content' => http_build_query([
+                        'secret' => $this->recaptcha_secret_key,
+                        'response' => $_POST['recaptcha-response']
+                    ])
+                ]
+            ];
+
+            $recapthca_context = stream_context_create($recaptcha_options);
+            $recapthca_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $recapthca_context);
+            $recapthca_response_keys = json_decode($recapthca_response, true);
+
+            if (!$recapthca_response_keys['success']) {
+                return 'Failed to validate the reCaptcha!';
+            }
+        }
+    }
+
     public function send()
     {
         if (!empty(trim($this->honeypot))) {
@@ -94,7 +126,7 @@ class PHP_Form
 //                return $this->error_msg['ajax_error'];
 //            }
 //        }
-
+        $this->reCaptcha();
         $to = filter_var($this->to, FILTER_VALIDATE_EMAIL);
         $from_name = filter_var($this->from_name);
         $from_email = filter_var($this->from_email, FILTER_VALIDATE_EMAIL);
@@ -140,9 +172,7 @@ class PHP_Form
             return $this->error;
 
         // Initialize PHPMailer
-        echo "START PHP MAILER";
         $mail = new PHPMailer(true);
-        echo "END PHP MAILER";
 
         try {
             // Set timeout to 30 seconds
