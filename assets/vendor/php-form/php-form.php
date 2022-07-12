@@ -32,6 +32,9 @@ class PHP_Form
     public $bcc = [];
     public $db_connection = [];
     public $conn = false;
+    public $honeypot = '';
+    public $recaptcha_secret_key = false;
+
 
     public $error_msg = array(
         'invalid_to_email' => 'Email to (receiving email address) is empty or invalid!',
@@ -82,6 +85,36 @@ class PHP_Form
 
     public function send()
     {
+        if (!empty(trim($this->honeypot))) {
+            return 'OK';
+        }
+
+        if ($this->recaptcha_secret_key) {
+
+            if (!$_POST['recaptcha-response']) {
+                return 'No reCaptcha response provided!';
+            }
+
+            $recaptcha_options = [
+                'http' => [
+                    'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method' => 'POST',
+                    'content' => http_build_query([
+                        'secret' => $this->recaptcha_secret_key,
+                        'response' => $_POST['recaptcha-response']
+                    ])
+                ]
+            ];
+
+            $recapthca_context = stream_context_create($recaptcha_options);
+            $recapthca_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $recapthca_context);
+            $recapthca_response_keys = json_decode($recapthca_response, true);
+
+            if (!$recapthca_response_keys['success']) {
+                return 'Failed to validate the reCaptcha!';
+            }
+        }
+
         if ($this->ajax) {
             if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
                 return $this->error_msg['ajax_error'];
