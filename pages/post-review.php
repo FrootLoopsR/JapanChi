@@ -81,7 +81,7 @@
                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
                 <div class="sent-message">Your review was sent. You can see it in <a
-                            href="javascript:loadPage('reviews')">Reviews Page</a> Thank you!
+                            href="javascript:loadPage('testimonials', true)">Reviews Page</a> Thank you!
                 </div>
             </div>
             <div class="text-center">

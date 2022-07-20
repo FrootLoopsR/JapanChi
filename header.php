@@ -5,7 +5,10 @@
 
         //on nav bar click, load the page into the main section
         //manipulation of dom to create "one page application"
-        function loadPage(page) {
+        function loadPage(page, redirect=false) {
+            if(document.getElementById(page) && !redirect)
+                return;
+
             $("#main").load(`pages/${page}.php`);
             document.body.scrollTop = 0; //safari
             document.documentElement.scrollTop = 0; //chrome, firefox, IE
@@ -28,8 +31,8 @@
             <li><a class="nav-link" href="javascript:loadPage('menu')">Menu</a></li>
             <li><a class="nav-link" href="javascript:loadPage('specials')">Specials</a></li>
             <li><a class="nav-link" href="javascript:loadPage('gallery')">Gallery</a></li>
-            <li><a class="nav-link" href="javascript:loadPage('contact-us')">Contact Us</a></li>
-            <li><a class="nav-link" href="javascript:loadPage('reviews')">Reviews</a></li>
+            <li><a class="nav-link" href="javascript:loadPage('contact')">Contact Us</a></li>
+            <li><a class="nav-link" href="javascript:loadPage('testimonials')">Reviews</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
