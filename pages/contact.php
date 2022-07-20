@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
 <!-- ======= Contact Section ======= -->
 <section id="contact" class="contact">
     <div class="container" data-aos="fade-up">
@@ -15,9 +22,7 @@
     </div>
 
     <div class="container" data-aos="fade-up">
-
         <div class="row mt-5">
-
             <div class="col-lg-4">
                 <div class="info">
                     <div class="address">
@@ -50,10 +55,8 @@
                 </div>
 
             </div>
-
             <div class="col-lg-8 mt-5 mt-lg-0">
-
-                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                <form action="forms/contact-us.php" method="post" role="form" class="php-email-form">
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
@@ -69,7 +72,7 @@
                                required>
                     </div>
                     <div class="form-group mt-3">
-                            <textarea class="form-control" name="message" rows="8" placeholder="Message"
+                            <textarea class="form-control" name="message" id="message" rows="8" placeholder="Message"
                                       required></textarea>
                     </div>
                     <div class="my-3">
@@ -86,5 +89,14 @@
     </div>
 </section>
 <!-- End Contact Section -->
+
+<!-- Vendor JS Files -->
+
+<script src="assets/vendor/php-form/validate.js"></script>
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+<!-- End Footer -->
+</body>
+</html>
 
 

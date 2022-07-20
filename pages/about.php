@@ -11,23 +11,17 @@
             <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
                 <h3>Software Engineering Final Project LAMP Stack</h3>
                 <p class="fst-italic">
-                    This is a project that I undertook in the Software Engineering module at the Rupping Academic
-                    Center.
-                    The project was to create a website that would be used to display the menu of the a restaurant.
-                    The website would be created using the LAMP stack.
+                    This is the final project for Software Engineering course at Ruppin Academic Center.
+                    The main goal of the project was to create a website using LAMP stack.
+                    Our theme is Sushi restaurant.
+                    In this website, you can view the menu, send a mail to contact us,
+                    check the reviews posted by our customers and send a review yourself.
                 </p>
                 <ul>
                     <li><i class="bi bi-check-circle"></i> Front-end development using HTML, CSS, and JavaScript</li>
                     <li><i class="bi bi-check-circle"></i> Back-end development using PHP and MySQL</li>
-                    <li><i class="bi bi-check-circle"></i> Deployment using Apache and Nginx</li>
+                    <li><i class="bi bi-check-circle"></i> Deployment using Heroku</li>
                 </ul>
-                <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                    in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum
-                </p>
             </div>
         </div>
 

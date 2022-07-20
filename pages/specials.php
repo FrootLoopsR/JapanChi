@@ -5,7 +5,7 @@
     <script>
         async function getDataFromDB() {
             try {
-                const response = await fetch('getProductsFromDB.php');
+                const response = await fetch('forms/get-products-from-db.php');
                 return JSON.parse(await response.json());
             } catch (error) {
                 console.log(error);
@@ -14,9 +14,7 @@
 
         async function showRelevantProducts() {
             const products = await getDataFromDB();
-            console.log(products);
             const filteredProducts = products.filter(product => product['productCategory'] === "Special");
-            console.log(filteredProducts);
             const specialDish = document.getElementById('special-dish-contect');
             const specialLinksDiv = document.getElementById('special-links');
             let tabCounter = 1;

@@ -35,9 +35,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
+        //when doc is ready load welcome page into the main section
+        //part of the manipulation to create "one page application"
         $(document).ready(function () {
             $("#main").load("pages/welcome.php");
         });
+
+
+        /*
+        * disable back button
+        * because of the "one page application" manipulation
+        * going back to the previous page will not work and cause error
+         */
+        window.location.hash = "no-back-button";
+        // Again because Google Chrome doesn't insert
+        // the first hash into the history
+        window.location.hash = "Again-No-back-button";
+
+        window.onhashchange = function(){
+            window.location.hash = "#";
+        }
     </script>
 </head>
 <body>
@@ -56,14 +73,14 @@
 
 
 </main>
-
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 <!-- ======= Footer ======= -->
 <footer id="footer">
     <?php include 'footer.php'; ?>
 </footer>
-<!--<div id="preloader"></div>-->
-<!--<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i-->
-<!--            class="bi bi-arrow-up-short"></i></a>-->
+
 
 <!-- Vendor JS Files -->
 <script src="assets/vendor/aos/aos.js"></script>
@@ -71,7 +88,7 @@
 <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/php-form/validate.js"></script>
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
