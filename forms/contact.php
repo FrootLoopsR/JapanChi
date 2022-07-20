@@ -9,7 +9,6 @@ if (file_exists($php_form = '../assets/vendor/php-form/php-form.php')) {
 }
 
 $contact = new PHP_Form('contact');
-$contact->ajax = true;
 
 $contact->to = $receiving_email_address;
 $contact->from_name = $_POST['name'];

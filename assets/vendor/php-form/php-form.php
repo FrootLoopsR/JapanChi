@@ -25,15 +25,10 @@ class PHP_Form
 
     public $content_type = 'text/html';
     public $charset = 'utf-8';
-    public $ajax = false;
 
-    public $options = [];
     public $cc = [];
-    public $bcc = [];
     public $db_connection = [];
     public $conn = false;
-    public $honeypot = '';
-    public $recaptcha_secret_key = false;
 
 
     public $error_msg = array(
@@ -42,11 +37,9 @@ class PHP_Form
         'invalid_from_email' => 'Email from: is empty or invalid!',
         'invalid_subject' => 'Subject is too short or empty!',
         'short' => 'is too short or empty!',
-        'ajax_error' => 'Sorry, the request should be an Ajax POST',
     );
 
     private $error = false;
-    private $attachments = [];
 
     public function __construct($form)
     {
@@ -59,10 +52,10 @@ class PHP_Form
             );
         } else {
             $this->db_connection = array(
-                "servername" => "eu-cdbr-west-03.cleardb.net",//getenv('DB_HOST'),
-                "username" => "bab8d7a58b622f",//getenv('DB_USER'),
-                "password" => "711f992d",//getenv('DB_PASS'),
-                "dbname" => "heroku_454fe75926c0540"//getenv('DB_NAME')
+                "servername" => getenv('DB_HOST'),
+                "username" => getenv('DB_USER'),
+                "password" => getenv('DB_PASS'),
+                "dbname" => getenv('DB_NAME')
             );
             $this->conn = new mysqli($this->db_connection['servername'], $this->db_connection['username'], $this->db_connection['password'], $this->db_connection['dbname']);
             if ($this->conn->connect_error) {
@@ -83,50 +76,8 @@ class PHP_Form
         $this->message .= !empty($label) ? '<strong>' . $label . ':</strong> ' . $message : $message;
     }
 
-    public function reCaptcha()
-    {
-        if (!$this->recaptcha_secret_key) {
-            return "No ReCaptcha Secret Key";
-        }
-        if ($this->recaptcha_secret_key) {
-
-            if (!$_POST['recaptcha-response']) {
-                return 'No reCaptcha response provided!';
-            }
-
-            $recaptcha_options = [
-                'http' => [
-                    'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                    'method' => 'POST',
-                    'content' => http_build_query([
-                        'secret' => $this->recaptcha_secret_key,
-                        'response' => $_POST['recaptcha-response']
-                    ])
-                ]
-            ];
-
-            $recapthca_context = stream_context_create($recaptcha_options);
-            $recapthca_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $recapthca_context);
-            $recapthca_response_keys = json_decode($recapthca_response, true);
-
-            if (!$recapthca_response_keys['success']) {
-                return 'Failed to validate the reCaptcha!';
-            }
-        }
-    }
-
     public function send()
     {
-        if (!empty(trim($this->honeypot))) {
-            return 'OK';
-        }
-
-//        if ($this->ajax) {
-//            if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
-//                return $this->error_msg['ajax_error'];
-//            }
-//        }
-        $this->reCaptcha();
         $to = filter_var($this->to, FILTER_VALIDATE_EMAIL);
         $from_name = filter_var($this->from_name);
         $from_email = filter_var($this->from_email, FILTER_VALIDATE_EMAIL);
@@ -205,31 +156,10 @@ class PHP_Form
                 }
             }
 
-            // bcc
-            if (count($this->bcc) > 0) {
-                foreach ($this->bcc as $bcc) {
-                    $mail->addBCC($bcc);
-                }
-            }
-
             // Content
             $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body = $message;
-
-            // Options
-            if (count($this->options) > 0) {
-                foreach ($this->options as $option_name => $option_val) {
-                    $mail->$option_name = $option_val;
-                }
-            }
-
-            // Attachments
-            if (count($this->attachments) > 0) {
-                foreach ($this->attachments as $attachment) {
-                    $mail->AddAttachment($attachment['path'], $attachment['name']);
-                }
-            }
 
             $mail->send();
 
@@ -254,8 +184,7 @@ class PHP_Form
         }
     }
 
-    public
-    function get_products_from_db()
+    public function get_products_from_db()
     {
         $sql = "SELECT * FROM products";
         $results = $this->conn->query($sql);
@@ -274,8 +203,7 @@ class PHP_Form
         return json_encode(json_encode($jsonData));
     }
 
-    public
-    function get_reviews_from_db()
+    public function get_reviews_from_db()
     {
         $sql = "SELECT * FROM reviews";
         $results = $this->conn->query($sql);
